@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import br.org.itai.amqpservice.connection.implementation.qpid.connection.QpidConnectionFactory;
 import br.org.itai.amqpservice.connection.implementation.qpid.destination.QpidDestinationFactory;
 import br.org.itai.amqpservice.convertion.implementation.json.ConverterFactoryImpl;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceAddress;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceQueue;
-import br.org.itai.amqpservice.proxyservice.services.impl.AnnotatedServiceImpl;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceAddress;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceQueue;
+import br.org.itai.amqpservice.proxy.services.impl.AnnotatedServiceImpl;
 import br.org.itai.amqpservice.test.config.interfaces.ServiceDefined;
 
 public abstract class AbstractTest extends TestCase {

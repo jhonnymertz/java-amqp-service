@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.annotations.service;
+package br.org.itai.amqpservice.proxy.annotations.service;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

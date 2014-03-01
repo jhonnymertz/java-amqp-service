@@ -1,13 +1,13 @@
-package br.org.itai.amqpservice.proxyservice;
+package br.org.itai.amqpservice.proxy;
 
 import java.lang.reflect.Proxy;
 
 import br.org.itai.amqpservice.connection.interfaces.ConnectionFactory;
 import br.org.itai.amqpservice.connection.interfaces.DestinationFactory;
 import br.org.itai.amqpservice.convertion.interfaces.ConverterFactory;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceAddress;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceQueue;
-import br.org.itai.amqpservice.proxyservice.services.impl.AnnotatedServiceImpl;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceAddress;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceQueue;
+import br.org.itai.amqpservice.proxy.services.impl.AnnotatedServiceImpl;
 
 public class AMQPService {
 

@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.message;
+package br.org.itai.amqpservice.proxy.message;
 
 import java.util.HashMap;
 import java.util.Map;

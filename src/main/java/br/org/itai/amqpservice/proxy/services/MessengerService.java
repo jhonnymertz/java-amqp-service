@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.services;
+package br.org.itai.amqpservice.proxy.services;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

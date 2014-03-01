@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.services.impl;
+package br.org.itai.amqpservice.proxy.services.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
@@ -18,16 +18,16 @@ import br.org.itai.amqpservice.connection.interfaces.DestinationFactory;
 import br.org.itai.amqpservice.convertion.interfaces.Converter;
 import br.org.itai.amqpservice.convertion.interfaces.ConverterFactory;
 import br.org.itai.amqpservice.convertion.interfaces.ConverterType;
-import br.org.itai.amqpservice.proxyservice.annotations.param.Param;
-import br.org.itai.amqpservice.proxyservice.annotations.param.config.AddressConfig;
-import br.org.itai.amqpservice.proxyservice.annotations.param.config.QueueConfig;
-import br.org.itai.amqpservice.proxyservice.annotations.param.config.ServiceConfig;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceAddress;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceQueue;
-import br.org.itai.amqpservice.proxyservice.message.RequestMessage;
-import br.org.itai.amqpservice.proxyservice.services.AnnotatedService;
-import br.org.itai.amqpservice.proxyservice.services.MessengerService;
-import br.org.itai.amqpservice.proxyservice.util.ParametizerStringUtils;
+import br.org.itai.amqpservice.proxy.annotations.param.Param;
+import br.org.itai.amqpservice.proxy.annotations.param.config.AddressConfig;
+import br.org.itai.amqpservice.proxy.annotations.param.config.QueueConfig;
+import br.org.itai.amqpservice.proxy.annotations.param.config.ServiceConfig;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceAddress;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceQueue;
+import br.org.itai.amqpservice.proxy.message.RequestMessage;
+import br.org.itai.amqpservice.proxy.services.AnnotatedService;
+import br.org.itai.amqpservice.proxy.services.MessengerService;
+import br.org.itai.amqpservice.proxy.util.ParametizerStringUtils;
 
 public class AnnotatedServiceImpl implements AnnotatedService,
 		InvocationHandler {

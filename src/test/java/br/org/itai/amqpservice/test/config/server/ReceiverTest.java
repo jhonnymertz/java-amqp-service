@@ -14,7 +14,7 @@ import org.apache.qpid.AMQException;
 import org.apache.qpid.client.AMQAnyDestination;
 import org.apache.qpid.client.AMQConnection;
 
-import br.org.itai.amqpservice.proxyservice.util.JMSMessageUtils;
+import br.org.itai.amqpservice.proxy.util.JMSMessageUtils;
 
 public class ReceiverTest {
 

@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.annotations.param.config;
+package br.org.itai.amqpservice.proxy.annotations.param.config;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,10 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
+@Target(ElementType.METHOD)
 @Documented
-public @interface AddressConfig {
+public @interface ServiceConfig {
 
-	String value();
+	boolean enable() default true;
+	
+	String name() default "service";
+	
+//	boolean groupParams() default true;
 
 }

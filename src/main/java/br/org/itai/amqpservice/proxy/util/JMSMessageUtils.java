@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.util;
+package br.org.itai.amqpservice.proxy.util;
 
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;

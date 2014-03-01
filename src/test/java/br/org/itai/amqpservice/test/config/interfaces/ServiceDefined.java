@@ -2,10 +2,10 @@ package br.org.itai.amqpservice.test.config.interfaces;
 
 import java.util.Date;
 
-import br.org.itai.amqpservice.proxyservice.annotations.param.Param;
-import br.org.itai.amqpservice.proxyservice.annotations.param.config.AddressConfig;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceAddress;
-import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceQueue;
+import br.org.itai.amqpservice.proxy.annotations.param.Param;
+import br.org.itai.amqpservice.proxy.annotations.param.config.AddressConfig;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceAddress;
+import br.org.itai.amqpservice.proxy.annotations.service.ServiceQueue;
 import br.org.itai.amqpservice.test.config.server.ResponseMessage;
 
 @ServiceAddress("amqp://{username}:{password}@{hostname}/{virtualhost}?brokerlist='tcp://{hostname}:{port}'")

@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.annotations.param.config;
+package br.org.itai.amqpservice.proxy.annotations.param;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 @Documented
-public @interface QueueConfig {
+public @interface Param {
 
 	String value();
 

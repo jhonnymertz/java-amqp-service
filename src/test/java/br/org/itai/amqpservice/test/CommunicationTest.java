@@ -5,7 +5,7 @@ import org.junit.Test;
 import br.org.itai.amqpservice.connection.implementation.qpid.connection.QpidConnectionFactory;
 import br.org.itai.amqpservice.connection.implementation.qpid.destination.QpidDestinationFactory;
 import br.org.itai.amqpservice.convertion.implementation.json.ConverterFactoryImpl;
-import br.org.itai.amqpservice.proxyservice.AMQPService;
+import br.org.itai.amqpservice.proxy.AMQPService;
 import br.org.itai.amqpservice.test.config.AbstractTest;
 import br.org.itai.amqpservice.test.config.interfaces.ServiceDefined;
 import br.org.itai.amqpservice.test.config.server.ReceiverTest;

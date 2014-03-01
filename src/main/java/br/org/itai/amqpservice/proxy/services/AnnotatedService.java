@@ -1,8 +1,8 @@
-package br.org.itai.amqpservice.proxyservice.services;
+package br.org.itai.amqpservice.proxy.services;
 
 import java.lang.reflect.Method;
 
-import br.org.itai.amqpservice.proxyservice.message.RequestMessage;
+import br.org.itai.amqpservice.proxy.message.RequestMessage;
 
 public interface AnnotatedService {
 

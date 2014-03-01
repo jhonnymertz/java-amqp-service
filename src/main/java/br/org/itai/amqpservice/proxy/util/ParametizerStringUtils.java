@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.util;
+package br.org.itai.amqpservice.proxy.util;
 
 import java.util.Map;
 import java.util.Map.Entry;

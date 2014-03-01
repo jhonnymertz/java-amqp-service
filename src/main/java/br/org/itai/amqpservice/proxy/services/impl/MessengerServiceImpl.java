@@ -1,4 +1,4 @@
-package br.org.itai.amqpservice.proxyservice.services.impl;
+package br.org.itai.amqpservice.proxy.services.impl;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,8 +19,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.org.itai.amqpservice.proxyservice.services.MessengerService;
-import br.org.itai.amqpservice.proxyservice.util.JMSMessageUtils;
+import br.org.itai.amqpservice.proxy.services.MessengerService;
+import br.org.itai.amqpservice.proxy.util.JMSMessageUtils;
 
 public class MessengerServiceImpl implements MessengerService {
 
