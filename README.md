@@ -1,93 +1,50 @@
-#TODO - Revisar e terminar
----
+# Java AMQP Service
 
-# AMQP Service API
----
+A Java library to support the AMQP communication as a service. Initial support Qpid, however easy to adjust to another AMQP broker using interfaces and factories. It aims to simulate the behavior of a service request/response over AMQP broker, thus getting similar to a web service over HTTP.
 
-API para auxílio ao desenvolvimento de serviços via AMQP com Qpid e Java.
+> Just set interfaces as services and annotate it to configure messages and connection, then relax and let the library do everything else.
 
-Tem por objetivo simular o comportamento de um serviço request/response sobre o broker AMQP, obtendo assim, comportamento similar a um serviço web.
+Steps involved in a service:
 
-Definição de serviços e mensagens é realizada de forma orientada a anotações e interfaces tornando transparente a implementação do serviço.
-
-Passos da invocação de um serviço:
-
-* Mapeamento da identificação do broker e fila a partir das anotações de serviço;
-* Mapeamento da mensagem a ser enviada a partir das anotações de mensagem em formato JSON; 
-* Envio da mensagem, juntamente com uma fila temporária para resposta por meio da api JMS do Qpid;
-* Escuta e recebimento da mensagem de resposta a partir da fila temporária criada para este fim;
-* Conversão da mensagem em texto no formato JSON para o objeto especificado de resposta.
-
-### Maven
-
-	<dependency>
-      <groupId>br.org.itai.amqp</groupId>
-      <artifactId>amqp-service-api</artifactId>
-      <version>0.1-SNAPSHOT</version>
-    </dependency>
+* Mapping broker configuration from defined config annotations;
+* Mapping message to be sent from message annotations; 
+* Conversion message in to JSON format;
+* Creating a tempory queue to receive the response;
+* Sending the message with the created temporary queue through [Qpid JMS API](http://qpid.apache.org/components/qpid-jms/); 
+* Listening and receiving the response message from created temporary queue; 
+* Conversion of the text message in JSON format to the specified response object.
     
-    <repositories>
-		<repository>
-			<id>br.org.itai</id>
-			<name>ITAI Internal Repository</name>
-			<url>http://repository.itai.org.br/repository/internal/</url>
-			<snapshots>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
-	
-	<pluginRepositories>
-		<pluginRepository>
-			<id>br.org.itai</id>
-			<name>ITAI Internal Repository</name>
-			<url>http://repository.itai.org.br/repository/internal/</url>
-			<snapshots>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-    
-## Anotações disponiveis
----
+### Available Annotations
+#### Service:
+* @ServiceAddress
+* @ServiceQueue
 
-### Serviço
+#### Message:
+* @Param
 
-@ServiceAddress
-@ServiceQueue
+#### Configuration:
+* @QueueConfig
+* @AddressConfig
+* @ServiceConfig
 
-### Mensagem
+### Message
 
-@Param
+The created and sent message will follow the above style:
 
-### Configuração
-
-@QueueConfig
-@AddressConfig
-@ServiceConfig
-
-## Mensagem
-
-	{
-	  "service" : "<nome serviço>",
+    {
+	  "service" : "<service method name>",
 	  "args" : {
-	    "<parametro especificado 1>" : "<tipo de dado>",
-	    "<parametro especificado 2>" : "<tipo de dado>" 
+	    "<param 1>" : "<data type>",
+	    "<param 2>" : "<data type>" 
 	  }
 	}
 
-## Exemplo de Utilização
----
+### Exemple
 
-#### UmrIntegrationService.java
-
-	import br.org.itai.amqpservice.proxyservice.annotations.param.Param;
-	import br.org.itai.amqpservice.proxyservice.annotations.param.config.QueueConfig;
-	import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceAddress;
-	import br.org.itai.amqpservice.proxyservice.annotations.service.ServiceQueue;
+##### Defining a service interface
 	
 	@ServiceAddress("amqp://192.168.1.185/default?brokerlist='tcp://192.168.1.185:5672?sasl_mechs='ANONYMOUS''")
-	public interface UmrIntegrationService {
+	public interface MyService {
 		
 		@ServiceQueue("umr{ip}.manual_trigger")
 		public ResponseMessage manual_trigger(
@@ -101,46 +58,51 @@ Passos da invocação de um serviço:
 				@QueueConfig("ip") String umrIp);
 	}
 	
-#### ResponseMessage.java
+##### Defining a response message
 	
 	public class ResponseMessage {
-
 	    public String status;
-
     }
 
+##### Using the service
 
-#### Uso com CDI:
+    MyService uis = new AMQPService(new QpidConnectionFactory(),
+            new QpidDestinationFactory(), new ConverterFactoryImpl())
+            .create(MyService.class);
+    
+    ResponseMessage message = uis.manual_trigger(true, true, "192.168.1.185");
+    
+    System.out.println(message.status); //print the received message
 
+#### Using with a container support:
+
+##### Spring:
 	@Bean
-	public UmrIntegrationService integrationService() throws Exception{
-		UmrIntegrationService uis = new AMQPService(new QpidConnectionFactory(),
+	public MyService integrationService() throws Exception{
+		MyService uis = new AMQPService(new QpidConnectionFactory(),
 				new QpidDestinationFactory(), new ConverterFactoryImpl())
-				.create(UmrIntegrationService.class);
+				.create(MyService.class);
 		return uis;
 	}
 ---
-	@Inject
-	private UmrIntegrationService uis;
----
+	@Autowired
+	private MyService uis;
 
-## Notas
+### Notes
 
-* A especificação do endereço do broker deve seguir a nomenclatura definida pelo [Qpid-JMS](http://people.apache.org/~jonathan/High-Level-API.html#id3068796).
-* A estrutura da mensagem a ser enviada segue o padrão especificado na seção de mensagens, apenas a mensagem de resposta é dinâmica, sendo especificada como o retorno do serviço invocado.
-* A mensagem de resposta será convertida de JSON para um objeto da classe especificada de retorno. Assim, a mensagem de resposta em texto do broker deve estar no formato JSON e ser equivalente a Classe Java especificada. 
+* Broker address specification should follow [Qpid-JMS format](http://people.apache.org/~jonathan/High-Level-API.html#id3068796).
+* The message to be sent will follow the style specified on section "messages".
+* The response message will be converted from JSON format to Object according with specified class in method return. Therefore, the response message should be a JSON-like message and match with the specified return Object.
 
-# Changelogs
----
+### Changelogs
 
-#### Versão 0.1 (SNAPSHOT)
-* Suporte a definição estática e dinâmica dos serviços e filas do broker AMQP via notações;
-* Suporte a composição da mensagem via anotações;
-* Conversão da mensagem de resposta para objeto por meio da especificação da classe de retorno do método invocado. 
-* Conversão da mensagem para envio no formato JSON;
-* Conexão com o broker Qpid via JMS;
+#### Version 0.1 (SNAPSHOT)
+* Connecting to the broker via Qpid JMS;
+* Dynamic and static services and queue configurations through annotations;
+* Support for message composition via annotations;
+* Conversion of the text message to send in JSON format; 
+* Conversion of the text response to object based on specified class by the invoked method return. 
 
-## Criado por
-
-Anderson Rodrigo Davi
-Jhonny Marcos Acordi Mertz
+## Created By
+* Anderson Rodrigo Davi
+* Jhonny Marcos Acordi Mertz
